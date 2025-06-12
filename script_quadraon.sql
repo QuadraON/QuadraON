@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `Usuario` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
-  `senha` VARCHAR(45) NULL,
+  `senha` VARCHAR(255) NULL,
   `endereco` VARCHAR(45) NULL,
   `telefone` Varchar(20) NULL,
   `tipoUsuario` ENUM('ADM', 'LOCADOR', 'LOCATARIO') NULL,
@@ -97,3 +97,7 @@ CREATE TABLE IF NOT EXISTS `Notificacao` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+/* Senha: 123 */
+INSERT INTO Usuario (nome, email, senha, endereco, telefone, tipoUsuario) 
+VALUES ('Rafael Viotto', 'rafael@gmail.com', '$2y$10$gCAcTQ0Hi3avHi18HArpFuyKvIvQK4Uk7zYKql4YGe9F1p9TeKMNe', 'Rua Armindo Mate', '45 999857228', 'ADM');
