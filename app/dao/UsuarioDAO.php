@@ -7,11 +7,11 @@ include_once(__DIR__ . "/../model/Usuario.php");
 
 class UsuarioDAO {
 
-    //Método para listar os usuaários a partir da base de dados
+    //Método para listar os usuários
     public function list() {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM usuario u ORDER BY u.nome_usuario";
+        $sql = "SELECT * FROM Usuario u ORDER BY u.nome";
         $stm = $conn->prepare($sql);    
         $stm->execute();
         $result = $stm->fetchAll();
@@ -19,12 +19,11 @@ class UsuarioDAO {
         return $this->mapUsuario($result);
     }
 
-    //Método para buscar um usuário por seu ID
+    //Buscar por ID
     public function findById(int $id) {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM usuario u" .
-               " WHERE u.id_usuario = ?";
+        $sql = "SELECT * FROM Usuario u WHERE u.idUsuario = ?";
         $stm = $conn->prepare($sql);    
         $stm->execute([$id]);
         $result = $stm->fetchAll();
@@ -36,17 +35,14 @@ class UsuarioDAO {
         elseif(count($usuarios) == 0)
             return null;
 
-        die("UsuarioDAO.findById()" . 
-            " - Erro: mais de um usuário encontrado.");
+        die("UsuarioDAO.findById() - Erro: mais de um usuário encontrado.");
     }
 
-
-    //Método para buscar um usuário por seu login e senha
+    //Login por email e senha
     public function findByEmailSenha(string $email, string $senha) {
         $conn = Connection::getConn();
 
-        $sql = "SELECT * FROM usuario u" .
-               " WHERE BINARY u.email = ?";
+        $sql = "SELECT * FROM Usuario u WHERE BINARY u.email = ?";
         $stm = $conn->prepare($sql);    
         $stm->execute([$email]);
         $result = $stm->fetchAll();
@@ -54,7 +50,6 @@ class UsuarioDAO {
         $usuario = $this->mapUsuario($result);
 
         if(count($usuario) == 1) {
-            //Tratamento para senha criptografada
             if(password_verify($senha, $usuario[0]->getSenha()))
                 return $usuario[0];
             else
@@ -62,16 +57,15 @@ class UsuarioDAO {
         } elseif(count($usuario) == 0)
             return null;
 
-        die("UsuarioDAO.findByLoginSenha()" . 
-            " - Erro: mais de um usuário encontrado.");
+        die("UsuarioDAO.findByEmailSenha() - Erro: mais de um usuário encontrado.");
     }
 
-    //Método para inserir um Usuario
+    //Inserir novo usuário
     public function insert(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "INSERT INTO usuario (nome_usuario, email, senha, endereco, telefone, tipoUsuario )" .
-               " VALUES (:nome, :email, :senha, :telefone)";
+        $sql = "INSERT INTO Usuario (nome, email, senha, endereco, telefone, tipoUsuario)
+                VALUES (:nome, :email, :senha, :endereco, :telefone, :tipoUsuario)";
         
         $senhaCripto = password_hash($usuario->getSenha(), PASSWORD_DEFAULT);
 
@@ -81,53 +75,55 @@ class UsuarioDAO {
         $stm->bindValue("senha", $senhaCripto);
         $stm->bindValue("endereco", $usuario->getEndereco());
         $stm->bindValue("telefone", $usuario->getTelefone());
-        $stm->bindValue("usuario", $usuario->getTipoUsuario());
+        $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->execute();
     }
 
-    //Método para atualizar um Usuario
+    //Atualizar usuário
     public function update(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "UPDATE usuarios SET nome_usuario = :nome, login = :login," . 
-               " senha = :senha, papel = :papel" .   
-               " WHERE id_usuario = :id";
+        $sql = "UPDATE Usuario SET nome = :nome, email = :email, senha = :senha,
+                endereco = :endereco, telefone = :telefone, tipoUsuario = :tipoUsuario
+                WHERE idUsuario = :idUsuario";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("nome", $usuario->getNome());
-        $stm->bindValue("login", $usuario->getEmail());
+        $stm->bindValue("email", $usuario->getEmail());
         $stm->bindValue("senha", password_hash($usuario->getSenha(), PASSWORD_DEFAULT));
-        $stm->bindValue("papel", $usuario->getEndereco());
+        $stm->bindValue("endereco", $usuario->getEndereco());
+        $stm->bindValue("telefone", $usuario->getTelefone());
+        $stm->bindValue("tipoUsuario", $usuario->getTipoUsuario());
         $stm->bindValue("idUsuario", $usuario->getIdUsuario());
         $stm->execute();
     }
 
-    //Método para excluir um Usuario pelo seu ID
+    //Excluir por ID
     public function deleteById(int $id) {
         $conn = Connection::getConn();
 
-        $sql = "DELETE FROM usuarios WHERE id_usuario = :id";
+        $sql = "DELETE FROM Usuario WHERE idUsuario = :id";
         
         $stm = $conn->prepare($sql);
         $stm->bindValue("id", $id);
         $stm->execute();
     }
 
-     //Método para alterar a foto de perfil de um usuário
-     public function updateFotoPerfil(Usuario $usuario) {
+    //Atualizar a "foto de perfil" (tipoUsuario no seu código original)
+    public function updateFotoPerfil(Usuario $usuario) {
         $conn = Connection::getConn();
 
-        $sql = "UPDATE usuarios SET telefone = ? WHERE id_usuario = ?";
+        $sql = "UPDATE Usuario SET tipoUsuario = ? WHERE idUsuario = ?";
 
         $stm = $conn->prepare($sql);
         $stm->execute(array($usuario->getTipoUsuario(), $usuario->getIdUsuario()));
     }
 
-    //Método para retornar a quantidade de usuários salvos na base
+    //Quantidade de usuários
     public function quantidadeUsuarios() {
         $conn = Connection::getConn();
 
-        $sql = "SELECT COUNT(*) AS qtd_usuario FROM usuario";
+        $sql = "SELECT COUNT(*) AS qtd_usuario FROM Usuario";
 
         $stm = $conn->prepare($sql);
         $stm->execute();
@@ -136,7 +132,7 @@ class UsuarioDAO {
         return $result[0]["qtd_usuario"];
     }
 
-    //Método para converter um registro da base de dados em um objeto Usuario
+    //Mapeamento de resultados para objetos
     private function mapUsuario($result) {
         $usuarios = array();
         foreach ($result as $reg) {

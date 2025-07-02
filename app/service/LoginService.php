@@ -1,41 +1,33 @@
 <?php
-#Nome do arquivo: LoginService.php
-#Objetivo: classe service para Login
-
-require_once(__DIR__ . "/../model/Usuario.php");
-
 class LoginService {
 
-    public function validarCampos(?string $email, ?string $senha) {
-        $arrayMsg = array();
+    public function validarCampos($email, $senha): array {
+        $erros = [];
 
-        //Valida o campo nome
-        if(! $email)
-            array_push($arrayMsg, "O campo [Email] é obrigatório.");
+        if (empty($email)) {
+            $erros[] = "O campo email é obrigatório.";
+        }
 
-        //Valida o campo login
-        if(! $senha)
-            array_push($arrayMsg, "O campo [Senha] é obrigatório.");
+        if (empty($senha)) {
+            $erros[] = "O campo senha é obrigatório.";
+        }
 
-        return $arrayMsg;
+        return $erros;
     }
 
-    public function salvarUsuarioSessao(Usuario $usuario) {
-        //Habilitar o recurso de sessão no PHP nesta página
-        session_start();
+    public function salvarUsuarioSessao($usuario): void {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        //Setar usuário na sessão do PHP
-        $_SESSION[SESSAO_USUARIO_ID]   = $usuario->getIdUsuario();
-        $_SESSION[SESSAO_USUARIO_NOME] = $usuario->getNome();
-        $_SESSION[SESSAO_USUARIO_TIPO] = $usuario->getTipoUsuario();
+        $_SESSION['usuario'] = $usuario;
     }
 
-    public function removerUsuarioSessao() {
-        //Habilitar o recurso de sessão no PHP nesta página
-        session_start();
+    public function removerUsuarioSessao(): void {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        //Destroi a sessão 
         session_destroy();
     }
-
 }

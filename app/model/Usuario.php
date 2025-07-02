@@ -6,14 +6,14 @@ require_once(__DIR__ . "/enum/UsuarioTipo.php");
 
 class Usuario {
 
-    private ?int $idUsuario;
-    private ?string $nome;
-    private ?string $email;
-    private ?string $senha;
-    private ?string $endereco;
-    private ?string $telefone;
-    private ?string $tipoUsuario;
-   
+    private ?int $idUsuario = null;
+    private ?string $nome = null;
+    private ?string $email = null;
+    private ?string $senha = null;
+    private ?string $endereco = null;
+    private ?string $telefone = null;
+    private ?string $tipoUsuario = null;
+
 
     /**
      * Get the value of idUsuario
@@ -139,5 +139,20 @@ class Usuario {
         $this->tipoUsuario = $tipoUsuario;
 
         return $this;
+    }
+    //////
+    public function salvar(): bool {
+        require_once(__DIR__ . '/../connection/connection.php');
+    
+        $conn = Connection::getConn(); // Corrigido: Connection em vez de Conexao
+    
+        $sql = "INSERT INTO usuario (nome, email, senha) VALUES (:nome, :email, :senha)";
+        $stmt = $conn->prepare($sql);
+    
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':senha', $this->senha);
+    
+        return $stmt->execute();
     }
 }
