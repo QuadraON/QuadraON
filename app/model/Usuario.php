@@ -140,19 +140,5 @@ class Usuario {
 
         return $this;
     }
-    //////
-    public function salvar(): bool {
-        require_once(__DIR__ . '/../connection/connection.php');
     
-        $conn = Connection::getConn(); // Corrigido: Connection em vez de Conexao
-    
-        $sql = "INSERT INTO usuario (nome, email, senha) VALUES (:nome, :email, :senha)";
-        $stmt = $conn->prepare($sql);
-    
-        $stmt->bindParam(':nome', $this->nome);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':senha', $this->senha);
-    
-        return $stmt->execute();
-    }
 }

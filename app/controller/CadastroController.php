@@ -1,12 +1,20 @@
 <?php
 require_once(__DIR__ . '/Controller.php');
 require_once(__DIR__ . '/../model/Usuario.php');
+require_once(__DIR__ . '/../service/UsuarioService.php');
+require_once(__DIR__ . '/../dao/UsuarioDAO.php'); // ✅ Adicionado para carregar o DAO
 
-class CadastroController extends Controller
-{
+class CadastroController extends Controller {
+
+    private UsuarioService $usuarioService;
+    private UsuarioDAO $usuarioDao; // ✅ Declarado o atributo
+
     // Método construtor do controller – chamado automaticamente
     public function __construct()
     {
+        $this->usuarioService = new UsuarioService();
+        $this->usuarioDao = new UsuarioDAO(); // ✅ Instanciado o DAO
+
         $this->handleAction(); // Essa função provavelmente está na classe pai "Controller"
     }
 
@@ -17,9 +25,6 @@ class CadastroController extends Controller
         
         //Loadview
         $this->loadView("usuario/cadastro.php", $dados);
-
-
-
     }
 
     // Salva os dados do usuário
@@ -29,30 +34,51 @@ class CadastroController extends Controller
         $nome = $_POST['nome'] ?? '';
         $email = $_POST['email'] ?? '';
         $senha = $_POST['senha'] ?? '';
+        $confSenha = $_POST['confSenha'] ?? '';
         $telefone = $_POST['telefone'] ?? '';
         $endereco = $_POST['endereco'] ?? '';
         $tipousuario = $_POST['tipousuario'] ?? '';
-        
-
+    
         // Carrega o modelo de usuário
-        
         $usuario = new Usuario();
         $usuario->setNome($nome);
         $usuario->setEmail($email);
-        $usuario->setSenha(password_hash($senha, PASSWORD_DEFAULT)); // Segurança com hash
+        // NÃO setar a senha ainda (hash)
+        $usuario->setSenha($senha);  // seta a senha em texto puro para validação
+    
         $usuario->setTelefone($telefone);
         $usuario->setEndereco($endereco);
-
-        // Salva no banco de dados
-        if ($usuario->salvar()) {
-
-            echo "Usuário cadastrado com sucesso!";
-            // Redirecionar ou carregar outra view, se quiser
-            // header('Location: LoginController.php?action=login');
-        } else {
-            echo "Erro ao cadastrar usuário.";
+        $usuario->setTipoUsuario($tipousuario);  // faltava setar esse campo
+    
+        // Validar os dados (camada service)
+        $erros = $this->usuarioService->validarDados($usuario, $confSenha);
+    
+        if (!$erros) {
+            // Se validou, agora sim gerar hash da senha
+            $usuario->setSenha(password_hash($senha, PASSWORD_DEFAULT));
+    
+            // Inserir no banco de dados
+            try {
+                if ($usuario->getIdUsuario() == 0)
+                    $this->usuarioDao->insert($usuario);
+                else
+                    $this->usuarioDao->update($usuario);
+    
+                header("location: " . BASEURL . "/controller/LoginController.php?action=login");
+                exit;
+            } catch (PDOException $e) {
+                array_push($erros, "Erro ao gravar no banco de dados!");
+            }
         }
+    
+        // Se houve erros, provavelmente você vai querer mostrar os erros na view
+        // Exemplo:
+        $dados['erros'] = $erros;
+        $dados['papeis'] = UsuarioTipo::getSemAdminAsArray();
+        $this->loadView("usuario/cadastro.php", $dados);
     }
+    
+
 }
 
 new CadastroController();
