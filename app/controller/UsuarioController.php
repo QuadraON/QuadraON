@@ -4,7 +4,7 @@ require_once(__DIR__ . "/Controller.php");
 require_once(__DIR__ . "/../dao/UsuarioDAO.php");
 require_once(__DIR__ . "/../service/UsuarioService.php");
 require_once(__DIR__ . "/../model/Usuario.php");
-require_once(__DIR__ . "/../model/enum/UsuarioPapel.php");
+require_once(__DIR__ . "/../model/enum/UsuarioTipo.php");
 
 class UsuarioController extends Controller {
 
@@ -30,7 +30,7 @@ class UsuarioController extends Controller {
 
     protected function create() {
         $dados['id'] = 0;
-        $dados['papeis'] = UsuarioPapel::getAllAsArray();
+        $dados['papeis'] = UsuarioTipo::getAllAsArray();
 
         $this->loadView("usuario/form.php", $dados);
     }
@@ -39,11 +39,11 @@ class UsuarioController extends Controller {
         //Busca o usuário na base pelo ID    
         $usuario = $this->findUsuarioById();
         if($usuario) {
-            $dados['id'] = $usuario->getId();
+            $dados['id'] = $usuario->getIdUsuario();
             $usuario->setSenha("");
             $dados["usuario"] = $usuario;
 
-            $dados['papeis'] = UsuarioPapel::getAllAsArray();
+            $dados['papeis'] = UsuarioTipo::getAllAsArray();
             
             $this->loadView("usuario/form.php", $dados);
         } else
@@ -54,25 +54,30 @@ class UsuarioController extends Controller {
         //Capturar os dados do formulário
         $id = $_POST['id'];
         $nome = trim($_POST['nome']) != "" ? trim($_POST['nome']) : NULL;
-        $login = trim($_POST['login']) != "" ? trim($_POST['login']) : NULL;
+        $email = trim($_POST['email']) != "" ? trim($_POST['email']) : NULL;
         $senha = trim($_POST['senha']) != "" ? trim($_POST['senha']) : NULL;
         $confSenha = trim($_POST['conf_senha']) != "" ? trim($_POST['conf_senha']) : NULL;
-        $papel = $_POST['papel'];
+        $endereco = isset($_POST['endereco']) && trim($_POST['endereco']) !== "" ? trim($_POST['endereco']) : null;
+        $telefone = isset($_POST['telefone']) && trim($_POST['telefone']) !== "" ? trim($_POST['telefone']) : null;
+
+        $tipousuario = $_POST['tipousuario'];
 
         //Criar o objeto Usuario
         $usuario = new Usuario();
-        $usuario->setId($id);
+        $usuario->setIdUsuario($id);
         $usuario->setNome($nome);
-        $usuario->setLogin($login);
+        $usuario->setEmail($email);
         $usuario->setSenha($senha);
-        $usuario->setPapel($papel);
+        $usuario->setEndereco($endereco);
+        $usuario->setTelefone($telefone);
+        $usuario->setTipoUsuario($tipousuario);
 
         //Validar os dados (camada service)
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
         if(! $erros) {
             //Inserir no Base de Dados
             try {
-                if($usuario->getId() == 0)
+                if($usuario->getIdUsuario() == 0)
                     $this->usuarioDao->insert($usuario);
                 else
                     $this->usuarioDao->update($usuario);
@@ -87,8 +92,8 @@ class UsuarioController extends Controller {
         } 
 
         //Mostrar os erros
-        $dados['id'] = $usuario->getId();
-        $dados['papeis'] = UsuarioPapel::getAllAsArray();
+        $dados['id'] = $usuario->getIdUsuario();
+        $dados['papeis'] = UsuarioTipo::getAllAsArray();
         $dados["usuario"] = $usuario;
         $dados['confSenha'] = $confSenha;
 
@@ -103,7 +108,7 @@ class UsuarioController extends Controller {
         
         if($usuario) {
             //Excluir
-            $this->usuarioDao->deleteById($usuario->getId());
+            $this->usuarioDao->deleteById($usuario->getIdUsuario());
 
             header("location: " . BASEURL . "/controller/UsuarioController.php?action=list");
             exit;

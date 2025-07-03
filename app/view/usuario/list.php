@@ -28,8 +28,10 @@ require_once(__DIR__ . "/../include/menu.php");
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Login</th>
-                        <th>Papel</th>
+                        <th>Email</th>
+                        <th>Endereço</th>
+                        <th>Telefone</th>
+                        <th>Tipo</th>
                         <th>Alterar</th>
                         <th>Excluir</th>
                     </tr>
@@ -37,17 +39,19 @@ require_once(__DIR__ . "/../include/menu.php");
                 <tbody>
                     <?php foreach($dados['lista'] as $usu): ?>
                         <tr>
-                            <td><?php echo $usu->getId(); ?></td>
+                            <td><?php echo $usu->getIdUsuario(); ?></td>
                             <td><?= $usu->getNome(); ?></td>
-                            <td><?= $usu->getLogin(); ?></td>
-                            <td><?= $usu->getPapel(); ?></td>
+                            <td><?= $usu->getEmail(); ?></td>
+                            <td><?= $usu->getEndereco(); ?></td>
+                            <td><?= $usu->getTelefone(); ?></td>
+                            <td><?= $usu->getTipoUsuario(); ?></td>
                             <td><a class="btn btn-primary" 
-                                href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getId() ?>">
+                                href="<?= BASEURL ?>/controller/UsuarioController.php?action=edit&id=<?= $usu->getIdUsuario() ?>">
                                 Alterar</a> 
                             </td>
                             <td><a class="btn btn-danger" 
                                 onclick="return confirm('Confirma a exclusão do usuário?');"
-                                href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $usu->getId() ?>">
+                                href="<?= BASEURL ?>/controller/UsuarioController.php?action=delete&id=<?= $usu->getIdUsuario() ?>">
                                 Excluir</a> 
                             </td>
                         </tr>

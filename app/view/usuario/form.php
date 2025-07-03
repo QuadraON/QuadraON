@@ -21,15 +21,15 @@ require_once(__DIR__ . "/../include/menu.php");
                 <div class="mb-3">
                     <label class="form-label" for="txtNome">Nome:</label>
                     <input class="form-control" type="text" id="txtNome" name="nome" 
-                        maxlength="70" placeholder="Informe o nome"
+                        maxlength="45" placeholder="Informe o nome"
                         value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getNome() : ''); ?>" />
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label" for="txtLogin">Login:</label>
-                    <input class="form-control" type="text" id="txtLogin" name="login" 
-                        maxlength="15" placeholder="Informe o login"
-                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getLogin() : ''); ?>"/>
+                    <label class="form-label" for="txtEmail">Email:</label>
+                    <input class="form-control" type="text" id="txtEmail" name="email" 
+                        maxlength="45" placeholder="Informe o email"
+                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEmail() : ''); ?>"/>
                 </div>
 
                 <div class="mb-3">
@@ -47,17 +47,31 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="selPapel">Papel:</label>
-                    <select class="form-select" name="papel" id="selPapel">
-                        <option value="">Selecione o papel</option>
-                        <?php foreach($dados["papeis"] as $papel): ?>
-                            <option value="<?= $papel ?>" 
+                    <label class="form-label" for="txtEndereco">Endereço:</label>
+                    <input class="form-control" type="text" id="txtEndereco" name="endereco" 
+                        maxlength="80" placeholder="Informe o endereço"
+                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getEndereco() : ''); ?>"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="txtTelefone">Telefone:</label>
+                    <input class="form-control" type="text" id="txtTelefone" name="telefone" 
+                        maxlength="80" placeholder="Informe o telefone"
+                        value="<?php echo (isset($dados["usuario"]) ? $dados["usuario"]->getTelefone() : ''); ?>"/>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="selPapel">Tipo de Usuario:</label>
+                    <select class="form-select" name="tipousuario" id="selPapel">
+                        <option value="">Selecione o Tipo de Usuario</option>
+                        <?php foreach($dados["papeis"] as $tipousuario): ?>
+                            <option value="<?= $tipousuario ?>" 
                                 <?php 
-                                    if(isset($dados["usuario"]) && $dados["usuario"]->getPapel() == $papel) 
+                                    if(isset($dados["usuario"]) && $dados["usuario"]->getTipoUsuario() == $tipousuario) 
                                         echo "selected";
                                 ?>    
                             >
-                                <?= $papel ?>
+                                <?= $tipousuario ?>
                             </option>
                         <?php endforeach; ?>
                     </select>

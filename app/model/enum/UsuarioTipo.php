@@ -14,5 +14,9 @@ class UsuarioTipo {
         return [UsuarioTipo::ADMINISTRADOR, UsuarioTipo::LOCADOR, UsuarioTipo::LOCATARIO];
     }
 
+    public static function getSemAdminAsArray() {
+        return [UsuarioTipo::LOCADOR, UsuarioTipo::LOCATARIO];
+    }
+
 }
 
