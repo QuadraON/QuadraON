@@ -34,36 +34,32 @@ class CadastroController extends Controller {
         $nome = $_POST['nome'] ?? '';
         $email = $_POST['email'] ?? '';
         $senha = $_POST['senha'] ?? '';
-        $confSenha = $_POST['confSenha'] ?? '';
-        $telefone = $_POST['telefone'] ?? '';
+        $confSenha = $_POST['senha'] ?? '';
         $endereco = $_POST['endereco'] ?? '';
+        $telefone = $_POST['telefone'] ?? '';
         $tipousuario = $_POST['tipousuario'] ?? '';
     
         // Carrega o modelo de usuário
         $usuario = new Usuario();
         $usuario->setNome($nome);
         $usuario->setEmail($email);
-        // NÃO setar a senha ainda (hash)
         $usuario->setSenha($senha);  // seta a senha em texto puro para validação
-    
+  
         $usuario->setTelefone($telefone);
         $usuario->setEndereco($endereco);
         $usuario->setTipoUsuario($tipousuario);  // faltava setar esse campo
-    
+
         // Validar os dados (camada service)
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
-    
+            
         if (!$erros) {
             // Se validou, agora sim gerar hash da senha
             $usuario->setSenha(password_hash($senha, PASSWORD_DEFAULT));
     
             // Inserir no banco de dados
             try {
-                if ($usuario->getIdUsuario() == 0)
-                    $this->usuarioDao->insert($usuario);
-                else
-                    $this->usuarioDao->update($usuario);
-    
+                $this->usuarioDao->insert($usuario);
+
                 header("location: " . BASEURL . "/controller/LoginController.php?action=login");
                 exit;
             } catch (PDOException $e) {
@@ -73,9 +69,10 @@ class CadastroController extends Controller {
     
         // Se houve erros, provavelmente você vai querer mostrar os erros na view
         // Exemplo:
-        $dados['erros'] = $erros;
+        $msgErro = implode("<br>", $erros);
         $dados['papeis'] = UsuarioTipo::getSemAdminAsArray();
-        $this->loadView("usuario/cadastro.php", $dados);
+        $dados['usuario'] = $usuario;
+        $this->loadView("usuario/cadastro.php", $dados, $msgErro);
     }
     
 

@@ -73,7 +73,8 @@
         <h2>Cadastro de Usuário</h2>
         <form action="./CadastroController.php?action=salvar" method="POST">
             <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" >
+            <input type="text" name="nome" id="nome" 
+                value="<?= (isset($dados['usuario']) ? $dados['usuario']->getNome() : '') ?>" >
 
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" >
@@ -81,10 +82,10 @@
             <label for="senha">Senha:</label>
             <input type="password" name="senha" id="senha" >
 
-            <label for="endereco">endereco:</label>
+            <label for="endereco">Endereço:</label>
             <input type="text" name="endereco" id="endereco" >
 
-            <label for="telefone">telefone:</label>
+            <label for="telefone">Telefone:</label>
             <input type="text" name="telefone" id="telefone" >
 
             <label for="tipousuario">Tipo de Usuário:</label>
@@ -104,6 +105,9 @@
 
             <input type="submit" value="Cadastrar">
         </form>
+
+        <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+
         <div class="link-voltar">
             <p>Já possui conta?<a href="/QuadraON/app/controller/LoginController.php?action=login">Fazer login</a></p>
         </div>
