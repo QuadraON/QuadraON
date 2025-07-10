@@ -5,66 +5,87 @@
     <title>Cadastro de Usuário</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color:rgb(0, 0, 0);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f0f0f;
+            margin: 0;
+            padding: 0;
+            color: #ffffff;
         }
 
         .container {
             width: 400px;
             margin: 100px auto;
-            background:rgb(85, 187, 119);
+            background-color: #1a1a1a;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px #aaa;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
         }
 
         h2 {
             text-align: center;
-            color:rgb(0, 0, 0);
+            color: #00ff88;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
             margin-top: 15px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #ccc;
         }
 
         input[type="text"],
         input[type="email"],
-        input[type="password"]
-        input[type="text"],
-        input[type="text"],
-        input[type="select"] {
+        input[type="password"],
+        select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: none;
+            background-color: #2b2b2b;
+            color: #ffffff;
+            border-radius: 6px;
+            transition: border 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+            outline: none;
+            border: 2px solid #00ff88;
         }
 
         input[type="submit"] {
-            background-color:rgb(0, 0, 0);
-            color: white;
-            padding: 10px;
-            margin-top: 20px;
+            background-color: #00ff88;
+            color: #000000;
+            padding: 12px;
+            margin-top: 25px;
             border: none;
             width: 100%;
+            font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
         }
 
         input[type="submit"]:hover {
-            background-color: #004d40;
+            background-color: #00cc70;
         }
 
         .link-voltar {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
         }
 
         .link-voltar a {
-            color: #00796b;
+            color: #00ff88;
             text-decoration: none;
+            font-size: 0.95em;
+        }
+
+        .link-voltar a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -77,19 +98,23 @@
                 value="<?= (isset($dados['usuario']) ? $dados['usuario']->getNome() : '') ?>" >
 
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" >
+            <input type="email" name="email" id="email" 
+                value="<?= (isset($dados['usuario']) ? $dados['usuario']->getEmail() : '') ?>">
 
             <label for="senha">Senha:</label>
-            <input type="password" name="senha" id="senha" >
+            <input type="password" name="senha" id="senha"
+            value="<?= (isset($dados['usuario']) ? $dados['usuario']->getSenha() : '') ?>">
 
             <label for="endereco">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" >
+            <input type="text" name="endereco" id="endereco" 
+                value="<?= (isset($dados['usuario']) ? $dados['usuario']->getEndereco() : '') ?>">
 
             <label for="telefone">Telefone:</label>
-            <input type="text" name="telefone" id="telefone" >
+            <input type="text" name="telefone" id="telefone" 
+                value="<?= (isset($dados['usuario']) ? $dados['usuario']->getTelefone() : '') ?>">
 
             <label for="tipousuario">Tipo de Usuário:</label>
-            <select name="tipousuario" id="tipousuario" >
+            <select name="tipousuario" id="tipousuario">
                 <option value="">Selecione o Tipo de Usuário</option>
                 <?php foreach($dados["papeis"] as $tipousuario): ?>
                     <option value="<?= $tipousuario ?>" 

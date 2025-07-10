@@ -1,10 +1,11 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted" style="margin-top: 10px;">
-    <!-- Copyright -->
-    <div class="text-center p-4">
+<footer class="text-center text-white" style="background-color: #222; margin-top: 10px;">
+    <div class="p-4">
         © 2023 Copyright:
-        <a class="text-reset fw-bold" href="https://foz.ifpr.edu.br" target="blank">IFPR (Campus Foz do Iguaçu)</a>
-    </div>      
+        <a class="text-reset fw-bold" href="https://foz.ifpr.edu.br" target="_blank" style="color: #55bb77;">
+            IFPR (Campus Foz do Iguaçu)
+        </a>
+    </div>
 </footer>
 
 <!-- BOOTSTRAP: scripts requeridos pelo framework -->

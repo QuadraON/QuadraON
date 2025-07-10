@@ -7,6 +7,47 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
 
 ?>
+
+<style>
+    .navbar {
+        background-color: #222 !important;
+        padding: 12px 24px;
+    }
+
+    .navbar .nav-link {
+        color: #fff !important;
+        transition: color 0.3s ease;
+    }
+
+    .navbar .nav-link:hover,
+    .navbar .dropdown-item:hover {
+        color: #55bb77 !important;
+    }
+
+    .navbar .dropdown-menu {
+        background-color: #333;
+        border: none;
+    }
+
+    .navbar .dropdown-item {
+        color: #fff;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .navbar .dropdown-item:hover {
+        background-color: #444;
+        color: #55bb77;
+    }
+
+    .navbar-toggler {
+        border-color: #fff;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255,255,255,1%29)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+</style>
+
 <nav class="navbar navbar-expand-md bg-light px-3 mb-3">
     <button class="navbar-toggler" type="button"
         data-bs-toggle="collapse" data-bs-target="#navSite">

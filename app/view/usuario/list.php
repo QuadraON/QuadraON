@@ -6,7 +6,77 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
+<style>
+    body {
+        background-color: #111;
+        color: #f5f5f5;
+    }
+
+    h3.text-center {
+        color: #55bb77;
+        margin-bottom: 30px;
+    }
+
+    .container {
+        background-color: #1c1c1c;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    .btn-success {
+        background-color: #55bb77;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #449c60;
+    }
+
+    .btn-primary {
+        background-color:rgb(6, 70, 0);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color:rgb(0, 182, 70);
+    }
+
+    .btn-danger {
+        background-color:rgb(0, 112, 79);
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color:rgb(0, 189, 116);
+    }
+
+    .table {
+        background-color: #2a2a2a;
+        color: #f0f0f0;
+    }
+
+    .table thead {
+        background-color: #333;
+        color: #55bb77;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #242424;
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+        background-color: #1a1a1a;
+    }
+
+    .table-bordered th,
+    .table-bordered td {
+        border-color: #444;
+    }
+</style>
+
 <h3 class="text-center">Usuários</h3>
+
 
 <div class="container">
     <div class="row">

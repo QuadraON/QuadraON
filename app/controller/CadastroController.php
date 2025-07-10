@@ -53,9 +53,6 @@ class CadastroController extends Controller {
         $erros = $this->usuarioService->validarDados($usuario, $confSenha);
             
         if (!$erros) {
-            // Se validou, agora sim gerar hash da senha
-            $usuario->setSenha(password_hash($senha, PASSWORD_DEFAULT));
-    
             // Inserir no banco de dados
             try {
                 $this->usuarioDao->insert($usuario);
