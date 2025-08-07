@@ -88,6 +88,29 @@ require_once(__DIR__ . "/../include/menu.php");
     .col-6 {
         padding: 15px;
     }
+
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
 </style>
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
 
