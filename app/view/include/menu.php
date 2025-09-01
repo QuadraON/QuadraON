@@ -65,11 +65,25 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
                     data-bs-toggle="dropdown">
                     Cadastros
                 </a>
+                
 
                 <div class="dropdown-menu">
                     <a class="dropdown-item"
                         href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Usuários</a>
                     <a class="dropdown-item" href="#">Outro cadastro</a>
+                </div>
+            </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                    data-bs-toggle="dropdown">
+                    Quadras
+                </a>
+
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=list' ?>">Quadras</a>
+                    <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=create' ?>">Cadastrar Quadras</a>
                 </div>
             </li>
 
@@ -87,7 +101,7 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
                         href="<?= BASEURL . '/controller/PerfilController.php?action=view' ?>">Perfil</a>
                     <a class="dropdown-item" href="<?= LOGOUT_PAGE ?>">Sair</a>
                 </div>
-            </li>
+                
         </ul>
     </div>
 </nav>

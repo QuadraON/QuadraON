@@ -42,7 +42,7 @@ require_once(__DIR__ . "/../include/menu.php");
         color: #ccc;
     }
 
-    input.form-control {
+    input.form-control { 
         background-color: #2b2b2b;
         color: #fff;
         border: none;
@@ -130,6 +130,32 @@ require_once(__DIR__ . "/../include/menu.php");
         </ul>
     </div>
 </div>
+
+<h2>Quadras Cadastradas</h2>
+<?php if (!empty($dados["quadras"])) : ?>
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Descrição</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($dados["quadras"] as $quadra) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($quadra['idQuadra']) ?></td>
+                    <td><?= htmlspecialchars($quadra['nome']) ?></td>
+                    <td><?= htmlspecialchars($quadra['quadraTipo']) ?></td>
+                    <td><?= htmlspecialchars($quadra['descricao']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else : ?>
+    <p>Nenhuma quadra cadastrada.</p>
+<?php endif; ?>
 
 <script src="<?= BASEURL ?>/view/js/home_ajax.js"></script>
 

@@ -19,7 +19,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Quadra` (
   `idQuadra` INT NOT NULL AUTO_INCREMENT,
-  `tipo` ENUM('GRAMADO', 'SINTETICO', 'QUADRA', 'AREIA') NULL,
+  `nome` VARCHAR(45) NULL,
+  `quadraTipo` ENUM('GRAMADO', 'SINTETICO', 'QUADRA', 'AREIA') NULL,
   `descricao` VARCHAR(45) NULL,
   `idUsuario` INT NOT NULL,
   PRIMARY KEY (`idQuadra`),
