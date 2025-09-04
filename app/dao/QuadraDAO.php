@@ -19,11 +19,17 @@ class QuadraDAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function buscarPorId($idQuadra)
+{
+    $stmt = $this->conn->prepare("SELECT * FROM Quadra WHERE idQuadra = ?");
+    $stmt->execute([$idQuadra]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
-    public function inserir($nome, $tipo, $descricao, $idUsuario)
+    public function inserir($nome, $tipo, $descricao, $idUsuario, $foto)
     {
-        $stmt = $this->conn->prepare("INSERT INTO Quadra (nome, quadraTipo, descricao, idUsuario) VALUES (?, ?, ?, ?)");
-        return $stmt->execute([$nome, $tipo, $descricao, $idUsuario]);
+        $stmt = $this->conn->prepare("INSERT INTO Quadra (nome, quadraTipo, descricao, idUsuario, foto) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([$nome, $tipo, $descricao, $idUsuario, $foto]);
     }
 
     public function remover($idQuadra)

@@ -84,6 +84,7 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=list' ?>">Quadras</a>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=create' ?>">Cadastrar Quadras</a>
+                    <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=crudquadra' ?>">Alterar Quadras</a>
                 </div>
             </li>
 

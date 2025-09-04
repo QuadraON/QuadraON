@@ -17,10 +17,17 @@ class QuadraService
     }
 
     // TODO: É necessário incluir o nome da quadra
-    public function criarQuadra($nome, $tipo, $descricao, $idUsuario)
+    public function criarQuadra($nome, $tipo, $descricao, $idUsuario, $foto)
     {
-        return $this->quadraDAO->inserir($nome, $tipo, $descricao, $idUsuario);
+        return $this->quadraDAO->inserir($nome, $tipo, $descricao, $idUsuario, $foto);
     }
+
+    
+        public function buscarQuadraPorId($idQuadra)
+    {
+    return $this->quadraDAO->buscarPorId($idQuadra);
+    }
+
 
     public function deletarQuadra($idQuadra)
     {

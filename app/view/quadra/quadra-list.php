@@ -106,12 +106,14 @@ require_once(__DIR__ . "/../include/menu.php");
 
     <?php if (!empty($dados["quadras"])) : ?>
         <?php foreach ($dados["quadras"] as $quadra) : ?>
+            <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" style="text-decoration: none;">
             <div class="card">
                 <h2><?= htmlspecialchars($quadra['nome']) ?></h2>
                 <div class="info"><span>ID:</span> <?= htmlspecialchars($quadra['idQuadra']) ?></div>
                 <div class="info"><span>Tipo:</span> <?= htmlspecialchars($quadra['quadraTipo']) ?></div>
                 <div class="info"><span>Descrição:</span> <?= htmlspecialchars($quadra['descricao']) ?></div>
             </div>
+            </a>
         <?php endforeach; ?>
     <?php else : ?>
         <p>Nenhuma quadra cadastrada.</p>

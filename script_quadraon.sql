@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `Quadra` (
   `quadraTipo` ENUM('GRAMADO', 'SINTETICO', 'QUADRA', 'AREIA') NULL,
   `descricao` VARCHAR(45) NULL,
   `idUsuario` INT NOT NULL,
+  'foto' VARCHAR(255) NULL;
   PRIMARY KEY (`idQuadra`),
   INDEX `fk_Quadra_Usuario1_idx` (`idUsuario` ASC) ,
   CONSTRAINT `fk_Quadra_Usuario1`

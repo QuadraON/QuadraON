@@ -13,7 +13,7 @@ require_once(__DIR__ . "/../include/menu.php");
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuário</title>
+    <title>Cadastro de Quadra</title>
     <style>
         .msg-erro {
     background-color: #330000;
@@ -140,7 +140,11 @@ input[type="submit"]:hover {
     <div class="container">
 
         <h2>Cadastro de Quadras</h2>
-        <form action="./QuadraController.php?action=save" method="POST">
+        <form action="./QuadraController.php?action=save" method="POST" enctype="multipart/form-data">
+
+            <label for="foto">Foto da quadra:</label>
+            <input type="file" name="foto" id="foto" accept="image/*">
+
             <label for="nomeQuadra">Nome da Quadra:</label>
             <input type="text" name="nomeQuadra" id="nomeQuadra">
 
@@ -158,9 +162,10 @@ input[type="submit"]:hover {
                     <option value="<?= $quadraTipo ?>">
                         <?= $quadraTipo ?>
                     </option>
+
                 <?php endforeach; ?>
             </select>
-
+                    
             <input type="submit" value="Cadastrar">
         </form>
 

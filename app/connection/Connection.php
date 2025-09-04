@@ -2,7 +2,12 @@
 #Nome do arquivo: Connection.php
 #Objetivo: classe para conectar ao banco de dados
 
-//require_once(__DIR__ . "/../util/config.php");
+require_once(__DIR__ . "/../util/config.php");
+
+//define('DB_HOST', 'localhost');
+//define('DB_NAME', 'quadraon');
+//define('DB_USER', 'root');
+//define('DB_PASSWORD', '');
 
 class Connection {
 
