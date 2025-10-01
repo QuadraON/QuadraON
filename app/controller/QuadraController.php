@@ -42,6 +42,12 @@ class QuadraController extends Controller {
     // crud de quadras
     public function crudquadra()
     {
+        // Restrição para usuários do tipo ADM para acessar crudquadra
+        if(!isset($_SESSION[SESSAO_USUARIO_TIPO]) || $_SESSION[SESSAO_USUARIO_TIPO] !== UsuarioTipo::ADMINISTRADOR) {
+            echo "Acesso negado. Apenas administradores podem acessar esta página.";
+            return;
+        }
+
         $idUsuario = 1;
         $dados["lista"] = $this->quadraService->listarQuadrasPorUsuario($idUsuario);
 

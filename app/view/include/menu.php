@@ -2,6 +2,8 @@
 #Nome do arquivo: view/include/menu.php
 #Objetivo: menu da aplicação para ser incluído em outras páginas
 
+require_once(__DIR__ . "/../../model/enum/UsuarioTipo.php");
+
 $nome = "(Sessão expirada)";
 if (isset($_SESSION[SESSAO_USUARIO_NOME]))
     $nome = $_SESSION[SESSAO_USUARIO_NOME];
@@ -68,8 +70,10 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
                 
 
                 <div class="dropdown-menu">
+                    <?php if(isset($_SESSION[SESSAO_USUARIO_TIPO]) && $_SESSION[SESSAO_USUARIO_TIPO] === UsuarioTipo::ADMINISTRADOR): ?>
                     <a class="dropdown-item"
                         href="<?= BASEURL . '/controller/UsuarioController.php?action=list' ?>">Usuários</a>
+                    <?php endif; ?>
                     <a class="dropdown-item" href="#">Outro cadastro</a>
                 </div>
             </li>
@@ -84,7 +88,9 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=list' ?>">Quadras</a>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=create' ?>">Cadastrar Quadras</a>
+                    <?php if(isset($_SESSION[SESSAO_USUARIO_TIPO]) && $_SESSION[SESSAO_USUARIO_TIPO] === UsuarioTipo::ADMINISTRADOR): ?>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=crudquadra' ?>">Alterar Quadras</a>
+                    <?php endif; ?>
                 </div>
             </li>
 

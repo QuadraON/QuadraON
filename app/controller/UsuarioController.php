@@ -16,6 +16,14 @@ class UsuarioController extends Controller {
         if(! $this->usuarioEstaLogado())
             return;
 
+        // Restrição para usuários do tipo ADM para acessar list
+        if(isset($_GET['action']) && $_GET['action'] === 'list') {
+            if(!isset($_SESSION[SESSAO_USUARIO_TIPO]) || $_SESSION[SESSAO_USUARIO_TIPO] !== UsuarioTipo::ADMINISTRADOR) {
+                echo "Acesso negado. Apenas administradores podem acessar esta página.";
+                return;
+            }
+        }
+
         $this->usuarioDao = new UsuarioDAO();
         $this->usuarioService = new UsuarioService();
 

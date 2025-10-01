@@ -67,24 +67,6 @@ CREATE TABLE IF NOT EXISTS `Reserva` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `Disponibilidade`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Disponibilidade` (
-  `idDisponibilidade` INT NOT NULL AUTO_INCREMENT,
-  `diaSemana` ENUM('DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB') NOT NULL,
-  `horaInicio` TIME NOT NULL,
-  `horaFim` TIME NOT NULL,
-  `idQuadra` INT NOT NULL,
-  PRIMARY KEY (`idDisponibilidade`),
-  INDEX `fk_Disponibilidade_Quadra1_idx` (`idQuadra` ASC) ,
-  CONSTRAINT `fk_Disponibilidade_Quadra1`
-    FOREIGN KEY (`idQuadra`)
-    REFERENCES `Quadra` (`idQuadra`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `Notificacao`
