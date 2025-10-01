@@ -19,27 +19,34 @@ require_once(__DIR__ . "/../include/menu.php");
 </head>
 <body>
     <div class="container">
-        <h2>Editar Quadra</h2>
-        <form action="/QuadraON/app/controller/QuadraController.php?action=save" method="post" enctype="multipart/form-data">
+        <h2>Editar Quadra</h2>                                         
+        <!-- TODO:mudar a action -->
+        <form action="/QuadraON/app/controller/QuadraController.php?action=edit" method="post" enctype="multipart/form-data">
             <input type="hidden" name="idQuadra" value="<?= htmlspecialchars($dados['quadra']['idQuadra']) ?>">
             <label for="nomeQuadra">Nome:</label>
-            <input type="text" name="nomeQuadra" id="nomeQuadra" value="<?= htmlspecialchars($dados['quadra']['nome']) ?>" required>
+            <input type="text" name="nomeQuadra" id="nomeQuadra" value="<?= htmlspecialchars($dados['quadra']['nome']) ?>" >
 
             <label for="tipoQuadra">Tipo:</label>
-            <select name="tipoQuadra" id="tipoQuadra" required>
+            <select name="tipoQuadra" id="tipoQuadra">
                 <?php foreach ($dados["quadras"]['tipoQuadras'] as $tipo): ?>
                     <option value="<?= $tipo ?>" <?= $tipo == $dados['quadra']['quadraTipo'] ? 'selected' : '' ?>><?= $tipo ?></option>
                 <?php endforeach; ?>
             </select>
 
             <label for="descricao">Descrição:</label>
-            <input type="text" name="descricao" id="descricao" value="<?= htmlspecialchars($dados['quadra']['descricao']) ?>" required>
+            <input type="text" name="descricao" id="descricao" value="<?= htmlspecialchars($dados['quadra']['descricao']) ?>" >
 
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" name="endereco" id="endereco" value="<?= htmlspecialchars($dados['quadra']['endereco']) ?>" >
+
+            
             <label for="foto">Foto:</label>
             <input type="file" name="foto" id="foto" accept="image/*">
             <?php if (!empty($dados['quadra']['foto'])): ?>
                 <br><img src="/QuadraON/<?= htmlspecialchars($dados['quadra']['foto']) ?>" style="max-width:120px;max-height:120px;border-radius:8px;margin-top:10px;">
-            <?php endif; ?>
+            
+                <?php endif; ?>
 
             <button type="submit" class="btn">Salvar</button>
         </form>

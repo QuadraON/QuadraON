@@ -23,7 +23,9 @@ CREATE TABLE IF NOT EXISTS `Quadra` (
   `quadraTipo` ENUM('GRAMADO', 'SINTETICO', 'QUADRA', 'AREIA') NULL,
   `descricao` VARCHAR(45) NULL,
   `idUsuario` INT NOT NULL,
-  'foto' VARCHAR(255) NULL;
+  `foto` VARCHAR(255) NULL,
+  `endereco` VARCHAR(250) NULL,
+  
   PRIMARY KEY (`idQuadra`),
   INDEX `fk_Quadra_Usuario1_idx` (`idUsuario` ASC) ,
   CONSTRAINT `fk_Quadra_Usuario1`
@@ -44,9 +46,11 @@ CREATE TABLE IF NOT EXISTS `Reserva` (
   `data` DATE NULL,
   `horaInicio` TIME NULL,
   `horaFim` TIME NULL,
+  
   `situacaoPagamento` ENUM('PENDENTE', 'PAGO') NULL,
   `avaliacao` INT NULL,
   `comentario` VARCHAR(255) NULL,
+  
   PRIMARY KEY (`idReserva`),
   INDEX `fk_Reserva_Quadra1_idx` (`idQuadra` ASC) ,
   INDEX `fk_Reserva_Usuario1_idx` (`idUsuario` ASC) ,

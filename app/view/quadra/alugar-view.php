@@ -30,6 +30,25 @@ if ($idQuadra > 0) {
             margin: 0;
             padding: 0;
         }
+        .alugar-btn {
+    display: block;
+    margin: 24px auto 0 auto;
+    padding: 10px 28px;
+    background: #00ff88;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s;
+    text-align: center;
+    cursor: pointer;
+}
+.alugar-btn:hover {
+    background: #00cc6a;
+    color: #fff;
+}
         .container {
             margin: 40px auto;
             max-width: 500px;
@@ -106,6 +125,8 @@ if ($idQuadra > 0) {
             <div class="info"><span>Descrição:</span> <?= htmlspecialchars($quadra['descricao']) ?></div>
             <div class="info"><span>Endereço:</span> <?= htmlspecialchars($quadra['endereco']) ?></div>
         </div>
+        
+        <a href="/QuadraON/app/controller/QuadraController.php?action=alugar&id=<?= htmlspecialchars($quadra['idQuadra']) ?>" class="back-btn">Alugar</a>
         <a href="/QuadraON/app/controller/QuadraController.php?action=list" class="back-btn">Voltar</a>
     <?php else: ?>
         <p>Quadra não encontrada.</p>

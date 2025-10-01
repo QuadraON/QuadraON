@@ -26,10 +26,10 @@ class QuadraDAO
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-    public function inserir($nome, $tipo, $descricao, $idUsuario, $foto)
+    public function inserir($nome, $tipo, $descricao, $idUsuario, $foto , $endereco)
     {
-        $stmt = $this->conn->prepare("INSERT INTO Quadra (nome, quadraTipo, descricao, idUsuario, foto) VALUES (?, ?, ?, ?, ?)");
-        return $stmt->execute([$nome, $tipo, $descricao, $idUsuario, $foto]);
+        $stmt = $this->conn->prepare("INSERT INTO Quadra (nome, quadraTipo, descricao, idUsuario, foto, endereco) VALUES (?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$nome, $tipo, $descricao, $idUsuario, $foto , $endereco]);
     }
 
     public function remover($idQuadra)
@@ -45,4 +45,21 @@ class QuadraDAO
         $stmt = $this->conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function atualizar($idQuadra, $nome, $tipo, $descricao, $endereco, $foto)
+{
+    if ($foto) {
+        $stmt = $this->conn->prepare("UPDATE Quadra SET nome=?, quadraTipo=?, descricao=?, endereco=?, foto=? WHERE idQuadra=?");
+        return $stmt->execute([$nome, $tipo, $descricao, $endereco, $foto, $idQuadra]);
+    } else {
+        $stmt = $this->conn->prepare("UPDATE Quadra SET nome=?, quadraTipo=?, descricao=?, endereco=? WHERE idQuadra=?");
+        return $stmt->execute([$nome, $tipo, $descricao, $endereco, $idQuadra]);
+    }
+}
+////////
+public function criarReserva($idQuadra, $idUsuario, $data, $horaInicio, $horaFim)
+{
+    $stmt = $this->conn->prepare("INSERT INTO Reserva (idQuadra, idUsuario, data, horaInicio, horaFim) VALUES ( ?, ?, ?, ?, ?)");
+    return $stmt->execute([ $idQuadra, $idUsuario, $data, $horaInicio, $horaFim]);
+}
 }

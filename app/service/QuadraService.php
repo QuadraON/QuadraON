@@ -17,9 +17,9 @@ class QuadraService
     }
 
     // TODO: É necessário incluir o nome da quadra
-    public function criarQuadra($nome, $tipo, $descricao, $idUsuario, $foto)
+    public function criarQuadra($nome, $tipo, $descricao, $idUsuario, $foto , $endereco)
     {
-        return $this->quadraDAO->inserir($nome, $tipo, $descricao, $idUsuario, $foto);
+        return $this->quadraDAO->inserir($nome, $tipo, $descricao, $idUsuario, $foto, $endereco);
     }
 
     
@@ -37,4 +37,14 @@ class QuadraService
     {
         return $this->quadraDAO->buscarTodas();
     }
+
+    public function atualizarQuadra(  $idQuadra, $nome, $tipo, $descricao, $endereco, $foto)
+{
+    return $this->quadraDAO->atualizar( $idQuadra, $nome, $tipo, $descricao, $endereco, $foto);
+}
+//////////////
+public function alugarQuadra( $idQuadra, $idUsuario, $data, $horaInicio, $horaFim)
+{
+    return $this->quadraDAO->criarReserva( $idQuadra, $idUsuario, $data, $horaInicio, $horaFim);
+}
 }

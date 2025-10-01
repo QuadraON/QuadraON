@@ -112,6 +112,7 @@ require_once(__DIR__ . "/../include/menu.php");
                 <div class="info"><span>ID:</span> <?= htmlspecialchars($quadra['idQuadra']) ?></div>
                 <div class="info"><span>Tipo:</span> <?= htmlspecialchars($quadra['quadraTipo']) ?></div>
                 <div class="info"><span>Descrição:</span> <?= htmlspecialchars($quadra['descricao']) ?></div>
+                <div class="info"><span>Endereço:</span> <?= htmlspecialchars($quadra['endereco']) ?></div>
             </div>
             </a>
         <?php endforeach; ?>
