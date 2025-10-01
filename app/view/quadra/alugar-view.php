@@ -126,7 +126,8 @@ if ($idQuadra > 0) {
             <div class="info"><span>Endereço:</span> <?= htmlspecialchars($quadra['endereco']) ?></div>
         </div>
         
-        <a href="/QuadraON/app/controller/QuadraController.php?action=alugar&id=<?= htmlspecialchars($quadra['idQuadra']) ?>" class="back-btn">Alugar</a>
+        <a href="/QuadraON/app/controller/QuadraController.php?action=alugar&id=<?= htmlspecialchars($quadra['idQuadra']) ?>" class="alugar-btn">Alugar</a>
+        <a href="/QuadraON/app/controller/QuadraController.php?action=reservas&id=<?= htmlspecialchars($quadra['idQuadra']) ?>" class="back-btn">Ver Reservas</a>
         <a href="/QuadraON/app/controller/QuadraController.php?action=list" class="back-btn">Voltar</a>
     <?php else: ?>
         <p>Quadra não encontrada.</p>

@@ -168,6 +168,16 @@ public function alugar()
 
         // Só salva se todos os campos estiverem preenchidos
         if ($idQuadra && $idUsuario && $data && $horaInicio && $horaFim) {
+            // Verifica conflito de reserva
+            $existeConflito = $this->quadraService->existeReservaConflitante($idQuadra, $data, $horaInicio, $horaFim);
+            if ($existeConflito) {
+                $dados['erro'] = "Já existe uma reserva nesse horário. Por favor, escolha outro horário.";
+                $quadra = $this->quadraService->buscarQuadraPorId($idQuadra);
+                $dados['quadra'] = $quadra;
+                $this->loadView("quadra/alugar-form.php", $dados);
+                return;
+            }
+
             $resultado = $this->quadraService->alugarQuadra($idQuadra, $idUsuario, $data, $horaInicio, $horaFim);
             if ($resultado) {
                 // Sucesso: redireciona para a lista
@@ -205,6 +215,24 @@ public function alugar()
     }
     $dados['quadra'] = $quadra;
     $this->loadView("quadra/alugar-form.php", $dados);
+}
+
+public function reservas()
+{
+    $idQuadra = $_GET['id'] ?? null;
+    if (!$idQuadra) {
+        $this->list();
+        return;
+    }
+    $quadra = $this->quadraService->buscarQuadraPorId($idQuadra);
+    if (!$quadra) {
+        $this->list();
+        return;
+    }
+    $reservas = $this->quadraService->buscarReservasPorQuadra($idQuadra);
+    $dados['quadra'] = $quadra;
+    $dados['reservas'] = $reservas;
+    $this->loadView("quadra/reservas-view.php", $dados);
 }
 }
 

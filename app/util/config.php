@@ -12,6 +12,7 @@ define('DB_NAME', 'quadraon');
 define('DB_USER', 'root');
 define('DB_PASSWORD', 'bancodedados');
 
+
 //Caminho para adionar imagens, scripts e chamar páginas no sistema
 //Deve ter o nome da pasta do projeto no servidor APACHE
 define('BASEURL', '/QuadraON/app');

@@ -47,4 +47,14 @@ public function alugarQuadra( $idQuadra, $idUsuario, $data, $horaInicio, $horaFi
 {
     return $this->quadraDAO->criarReserva( $idQuadra, $idUsuario, $data, $horaInicio, $horaFim);
 }
+
+public function buscarReservasPorQuadra($idQuadra)
+{
+    return $this->quadraDAO->buscarReservasPorQuadra($idQuadra);
+}
+
+public function existeReservaConflitante($idQuadra, $data, $horaInicio, $horaFim)
+{
+    return $this->quadraDAO->existeReservaConflitante($idQuadra, $data, $horaInicio, $horaFim);
+}
 }

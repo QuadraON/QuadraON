@@ -20,11 +20,11 @@ class QuadraDAO
     }
 
     public function buscarPorId($idQuadra)
-{
-    $stmt = $this->conn->prepare("SELECT * FROM Quadra WHERE idQuadra = ?");
-    $stmt->execute([$idQuadra]);
-    return $stmt->fetch(PDO::FETCH_ASSOC);
-}
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM Quadra WHERE idQuadra = ?");
+        $stmt->execute([$idQuadra]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function inserir($nome, $tipo, $descricao, $idUsuario, $foto , $endereco)
     {
@@ -47,19 +47,47 @@ class QuadraDAO
     }
 
     public function atualizar($idQuadra, $nome, $tipo, $descricao, $endereco, $foto)
-{
-    if ($foto) {
-        $stmt = $this->conn->prepare("UPDATE Quadra SET nome=?, quadraTipo=?, descricao=?, endereco=?, foto=? WHERE idQuadra=?");
-        return $stmt->execute([$nome, $tipo, $descricao, $endereco, $foto, $idQuadra]);
-    } else {
-        $stmt = $this->conn->prepare("UPDATE Quadra SET nome=?, quadraTipo=?, descricao=?, endereco=? WHERE idQuadra=?");
-        return $stmt->execute([$nome, $tipo, $descricao, $endereco, $idQuadra]);
+    {
+        if ($foto) {
+            $stmt = $this->conn->prepare("UPDATE Quadra SET nome=?, quadraTipo=?, descricao=?, endereco=?, foto=? WHERE idQuadra=?");
+            return $stmt->execute([$nome, $tipo, $descricao, $endereco, $foto, $idQuadra]);
+        } else {
+            $stmt = $this->conn->prepare("UPDATE Quadra SET nome=?, quadraTipo=?, descricao=?, endereco=? WHERE idQuadra=?");
+            return $stmt->execute([$nome, $tipo, $descricao, $endereco, $idQuadra]);
+        }
     }
-}
-////////
-public function criarReserva($idQuadra, $idUsuario, $data, $horaInicio, $horaFim)
-{
-    $stmt = $this->conn->prepare("INSERT INTO Reserva (idQuadra, idUsuario, data, horaInicio, horaFim) VALUES ( ?, ?, ?, ?, ?)");
-    return $stmt->execute([ $idQuadra, $idUsuario, $data, $horaInicio, $horaFim]);
-}
+
+    public function criarReserva($idQuadra, $idUsuario, $data, $horaInicio, $horaFim)
+    {
+        $stmt = $this->conn->prepare("INSERT INTO Reserva (idQuadra, idUsuario, data, horaInicio, horaFim) VALUES ( ?, ?, ?, ?, ?)");
+        return $stmt->execute([ $idQuadra, $idUsuario, $data, $horaInicio, $horaFim]);
+    }
+
+    public function buscarReservasPorQuadra($idQuadra)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM Reserva WHERE idQuadra = ? ORDER BY data, horaInicio");
+        $stmt->execute([$idQuadra]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Verifica se existe reserva conflitante para a quadra, data e intervalo de horário fornecidos.
+     * Retorna true se houver conflito, false caso contrário.
+     */
+    public function existeReservaConflitante($idQuadra, $data, $horaInicio, $horaFim)
+    {
+        $sql = "SELECT COUNT(*) FROM Reserva 
+                WHERE idQuadra = ? 
+                AND data = ? 
+                AND (
+                    (horaInicio < ? AND horaFim > ?) OR
+                    (horaInicio >= ? AND horaInicio < ?)
+                )";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idQuadra, $data, $horaFim, $horaInicio, $horaInicio, $horaFim]);
+        $count = $stmt->fetchColumn();
+
+        return $count > 0;
+    }
 }
