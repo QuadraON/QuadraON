@@ -11,6 +11,11 @@ class QuadraService
         $this->quadraDAO = new QuadraDAO();
     }
 
+    public function listarTodasAsQuadras()
+    {
+        return $this->quadraDAO->buscarTodas();
+    }
+
     public function listarQuadrasPorUsuario($idUsuario)
     {
         return $this->quadraDAO->buscarPorUsuario($idUsuario);
@@ -31,6 +36,9 @@ class QuadraService
 
     public function deletarQuadra($idQuadra)
     {
+        // Primeiro, remover todas as reservas associadas à quadra
+        $this->quadraDAO->removerReservasPorQuadra($idQuadra);
+        // Depois, remover a quadra
         return $this->quadraDAO->remover($idQuadra);
     }
     public function buscarTodas()

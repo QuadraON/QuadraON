@@ -5,6 +5,7 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +70,9 @@ require_once(__DIR__ . "/../include/menu.php");
             font-size: 1.1rem;
         }
 
-        header, nav, footer {
+        header,
+        nav,
+        footer {
             background-color: #1a1a1a;
             padding: 20px;
             text-align: center;
@@ -93,48 +96,92 @@ require_once(__DIR__ . "/../include/menu.php");
             font-size: 0.9rem;
             color: #aaa;
         }
+
+        .quadra-container .row {
+            gap: 20px;
+        }
+
+        .quadra-container .card {
+            width: calc(33.33% - 13.33px);
+        }
+
+        .quadra-container .card-text {
+            text-align: justify;
+        }
+
+        .quadra-container .card-image-wrapper {
+            height: 200px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- Containers para injetar os arquivos HTML -->
-<div id="header"></div>
-<div id="menu"></div>
+    <!-- Containers para injetar os arquivos HTML -->
+    <div id="header"></div>
+    <div id="menu"></div>
 
-<div class="container">
-    <h1>Quadras Cadastradas</h1>
+    <div class="container quadra-container">
+        <h1>Quadras Cadastradas</h1>
 
-    <?php if (!empty($dados["quadras"])) : ?>
-        <?php foreach ($dados["quadras"] as $quadra) : ?>
-            <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" style="text-decoration: none;">
-            <div class="card">
-                <h2><?= htmlspecialchars($quadra['nome']) ?></h2>
-                <div class="info"><span>ID:</span> <?= htmlspecialchars($quadra['idQuadra']) ?></div>
-                <div class="info"><span>Tipo:</span> <?= htmlspecialchars($quadra['quadraTipo']) ?></div>
-                <div class="info"><span>Descrição:</span> <?= htmlspecialchars($quadra['descricao']) ?></div>
-                <div class="info"><span>Endereço:</span> <?= htmlspecialchars($quadra['endereco']) ?></div>
-            </div>
-            </a>
-        <?php endforeach; ?>
-    <?php else : ?>
-        <p>Nenhuma quadra cadastrada.</p>
-    <?php endif; ?>
-</div>
+        <div class="row">
 
-<div id="footer"></div>
+            <?php if (!empty($dados["quadras"])) : ?>
+                <?php foreach ($dados["quadras"] as $quadra) : ?>
+                    <!-- <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" style="text-decoration: none;">
+                    <div class="card">
+                        <h2><?= htmlspecialchars($quadra['nome']) ?></h2>
+                        <div class="info"><span>ID:</span> <?= htmlspecialchars($quadra['idQuadra']) ?></div>
+                        <div class="info"><span>Tipo:</span> <?= htmlspecialchars($quadra['quadraTipo']) ?></div>
+                        <div class="info"><span>Descrição:</span> <?= htmlspecialchars($quadra['descricao']) ?></div>
+                        <div class="info"><span>Endereço:</span> <?= htmlspecialchars($quadra['endereco']) ?></div>
+                    </div>
+                    </a> -->
 
-<script>
-    function loadHTML(id, file) {
-        fetch(file)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById(id).innerHTML = data;
-            });
-    }
 
-</script>
+                    <div class="card">
+
+                        <div class="card-image-wrapper">
+                            <img src="/QuadraON/<?= htmlspecialchars($quadra['foto']) ?>" class="card-img-top" alt="...">
+                        </div>
+
+
+                        <div class="card-body">
+
+                            <span class="badge rounded-pill text-bg-warning mb-3"><?= htmlspecialchars($quadra['quadraTipo']) ?></span>
+
+
+                            <h5 class="card-title"><?= ucfirst(htmlspecialchars($quadra['nome'])) ?></h5>
+                            <p class="card-text"><?=    substr(htmlspecialchars($quadra['descricao']), 0, 100)  ?> ...</p>
+                            <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" class="btn btn-primary">Reservar</a>
+                        </div>
+                    </div>
+
+
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>Nenhuma quadra cadastrada.</p>
+            <?php endif; ?>
+
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script>
+        function loadHTML(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                });
+        }
+    </script>
 
 </body>
+
 </html>
 
 <?php

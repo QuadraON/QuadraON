@@ -88,9 +88,7 @@ if (isset($_SESSION[SESSAO_USUARIO_NOME]))
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=list' ?>">Quadras</a>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=create' ?>">Cadastrar Quadras</a>
-                    <?php if(isset($_SESSION[SESSAO_USUARIO_TIPO]) && $_SESSION[SESSAO_USUARIO_TIPO] === UsuarioTipo::ADMINISTRADOR): ?>
                     <a class="dropdown-item" href="<?= BASEURL . '/controller/QuadraController.php?action=crudquadra' ?>">Alterar Quadras</a>
-                    <?php endif; ?>
                 </div>
             </li>
 

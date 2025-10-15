@@ -13,8 +13,10 @@ class QuadraDAO
 
     public function buscarPorUsuario($idUsuario)
     {
-        $sql = "SELECT * FROM Quadra";
+        $sql = "SELECT * FROM Quadra WHERE idUsuario = :idUsuario";
         $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -30,6 +32,12 @@ class QuadraDAO
     {
         $stmt = $this->conn->prepare("INSERT INTO Quadra (nome, quadraTipo, descricao, idUsuario, foto, endereco) VALUES (?, ?, ?, ?, ?, ?)");
         return $stmt->execute([$nome, $tipo, $descricao, $idUsuario, $foto , $endereco]);
+    }
+
+    public function removerReservasPorQuadra($idQuadra)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM Reserva WHERE idQuadra = ?");
+        return $stmt->execute([$idQuadra]);
     }
 
     public function remover($idQuadra)

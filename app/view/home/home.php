@@ -1,164 +1,92 @@
 <?php
-#Nome do arquivo: usuario/list.php
-#Objetivo: interface para listagem dos usuários do sistema
+#Nome do arquivo: home.php
+#Objetivo: homepage bonita e organizada do sistema QuadraON
 
 require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
-<style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #0f0f0f;
-        margin: 0;
-        padding: 0;
-        color: #ffffff;
-    }
 
-    .container {
-        margin-top: 100px;
-        background-color: #1a1a1a;
-        padding: 40px;
-        border-radius: 12px;
-        box-shadow: 0 0 15px rgba(0, 255, 128, 0.2);
-    }
-
-    .alert-info {
-        background-color: #222;
-        color: #fff;
-        border: none;
-        border-left: 5px solid #00ff88;
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    h4 {
-        color: #00ff88;
-        margin-bottom: 20px;
-    }
-
-    label {
-        font-weight: 600;
-        margin-bottom: 5px;
-        color: #ccc;
-    }
-
-    input.form-control { 
-        background-color: #2b2b2b;
-        color: #fff;
-        border: none;
-        padding: 10px;
-        border-radius: 6px;
-        width: 100%;
-    }
-
-    input.form-control:focus {
-        border: 2px solid #00ff88;
-        outline: none;
-    }
-
-    .btn-success {
-        background-color: #00ff88;
-        color: #000;
-        border: none;
-        padding: 12px 20px;
-        font-weight: bold;
-        border-radius: 6px;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-success:hover {
-        background-color: #00cc70;
-    }
-
-    a {
-        color: #00ff88;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-
-    span {
-        display: block;
-        margin-top: 15px;
-        color: #aaa;
-    }
-
-    .col-6 {
-        padding: 15px;
-    }
-
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-}
-</style>
 <link rel="stylesheet" href="<?= BASEURL ?>/view/css/home.css">
 
-<h3 class="text-center">Página inicial do sistema</h3>
-
-<div class="container">
-    <span>Quantidade de usuários cadastrados no sistema: </span>
-    <span class="fonteBonita">
-        <?php echo $dados["qtdUsuarios"] ?>
-    </span>
-    <button class="btn btn-info" 
-        onclick="carregarUsuarios('<?= BASEURL ?>')">Ajax</button>
-
-    <div>
-        <ul id="listaUsuarios">
-            
-        </ul>
+<!-- Seção Hero -->
+<div class="hero-section bg-dark text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold">Bem-vindo ao QuadraON</h1>
+                <p class="lead">O sistema completo para reserva e gestão de quadras esportivas. Reserve sua quadra favorita de forma rápida e fácil!</p>
+                <a href="<?= BASEURL ?>/controller/QuadraController.php?action=list" class="btn btn-success btn-lg">Ver Quadras Disponíveis</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="https://lnfoficial.com.br/media/2022/11/14.11.2022-Foz-Foto-Assessoria-Foz.jpg" alt="IFPR Foz do Iguaçu" class="img-fluid rounded shadow">
+            </div>
+        </div>
     </div>
 </div>
 
-<h2>Quadras Cadastradas</h2>
-<?php if (!empty($dados["quadras"])) : ?>
-    <table border="1" cellpadding="8">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Tipo</th>
-                <th>Descrição</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($dados["quadras"] as $quadra) : ?>
-                <tr>
-                    <td><?= htmlspecialchars($quadra['idQuadra']) ?></td>
-                    <td><?= htmlspecialchars($quadra['nome']) ?></td>
-                    <td><?= htmlspecialchars($quadra['quadraTipo']) ?></td>
-                    <td><?= htmlspecialchars($quadra['descricao']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php else : ?>
-    <p>Nenhuma quadra cadastrada.</p>
-<?php endif; ?>
+<!-- Seção de Recursos -->
+<div class="features-section py-5">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #00ff88;">Recursos Principais</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-secondary text-white h-100 border-0 shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-calendar-check fa-3x mb-3" style="color: #00ff88;"></i>
+                        <h5 class="card-title">Reserve Quadras</h5>
+                        <p class="card-text">Agende suas partidas esportivas em quadras disponíveis com facilidade.</p>
+                        <a href="<?= BASEURL ?>/controller/QuadraController.php?action=list" class="btn btn-success">Reservar Agora</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-secondary text-white h-100 border-0 shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-list fa-3x mb-3" style="color: #00ff88;"></i>
+                        <h5 class="card-title">Gerencie Reservas</h5>
+                        <p class="card-text">Visualize e gerencie suas reservas de quadras de forma organizada.</p>
+                        <a href="<?= BASEURL ?>/controller/QuadraController.php?action=reservas" class="btn btn-success">Minhas Reservas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-secondary text-white h-100 border-0 shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user fa-3x mb-3" style="color: #00ff88;"></i>
+                        <h5 class="card-title">Perfil do Usuário</h5>
+                        <p class="card-text">Atualize suas informações pessoais e gerencie seu perfil.</p>
+                        <a href="<?= BASEURL ?>/controller/PerfilController.php?action=view" class="btn btn-success">Editar Perfil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script src="<?= BASEURL ?>/view/js/home_ajax.js"></script>
+<!-- Seção de Estatísticas -->
+<div class="stats-section bg-dark py-5">
+    <div class="container">
+        <h2 class="text-center mb-4" style="color: #00ff88;">Estatísticas do Sistema</h2>
+        <div class="row text-center">
+            <div class="col-md-6 mb-4">
+                <div class="stat-card">
+                    <h3 class="display-4 fw-bold" style="color: #00ff88;"><?php echo isset($dados["qtdUsuarios"]) ? $dados["qtdUsuarios"] : 0; ?></h3>
+                    <p class="lead">Usuários Cadastrados</p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="stat-card">
+                    <h3 class="display-4 fw-bold" style="color: #00ff88;"><?php echo isset($dados["qtdQuadras"]) ? $dados["qtdQuadras"] : 0; ?></h3>
+                    <p class="lead">Quadras Disponíveis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<?php  
+<!-- Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>

@@ -6,81 +6,82 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<h3 class="text-center">
-    Perfil
-</h3>
+<div class="container my-4">
+    <h3 class="text-center mb-4">
+        <i class="bi bi-person-circle"></i> Perfil do Usuário
+    </h3>
 
-<div class="container">
-
-    <div class="row mt-2">
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Nome:</span>
-            <span><?= $dados['usuario']->getNome() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Email:</span>
-            <span><?= $dados['usuario']->getEmail() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Tipo de Usuario:</span>
-            <span><?= $dados['usuario']->getTipoUsuario() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Endereço:</span>
-            <span><?= $dados['usuario']->getEndereco() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <span class="fw-bold">Telefone:</span>
-            <span><?= $dados['usuario']->getTelefone() ?></span>
-        </div>
-
-        <div class="col-12 mb-2">
-            <div class="fw-bold">Foto:</div>
-            <?php if($dados['usuario']->getFotoPerfil()): ?>
-                <img src="<?= BASEURL_ARQUIVOS . '/' . $dados['usuario']->getFotoPerfil() ?>"
-                    height="300">
-            <?php endif; ?>
-        </div>
-
-    </div>
-    
-    <div class="row mt-5">
-        
-        <div class="col-6">
-            <form id="frmUsuario" method="POST" 
-                action="<?= BASEURL ?>/controller/PerfilController.php?action=save"
-                enctype="multipart/form-data" >
-                <div class="mb-3">
-                    <label class="form-label" for="txtFoto">Foto de perfil: </label>
-                    <input class="form-control" type="file" 
-                        id="txtFoto" name="foto" />
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-info-circle"></i> Informações Pessoais
+                    </h5>
                 </div>
-
-                <input type="hidden" name="fotoAnterior" value="<?= $dados['usuario']->getFotoPerfil() ?>">
-                
-                <div class="mt-3">
-                    <button type="submit" class="btn btn-success">Gravar</button>
+                <div class="card-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center border-bottom pb-2">
+                                <i class="bi bi-person-fill me-3 text-primary fs-4"></i>
+                                <div>
+                                    <label class="form-label fw-bold mb-1">Nome</label>
+                                    <p class="mb-0 text-muted"><?= $dados['usuario']->getNome() ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center border-bottom pb-2">
+                                <i class="bi bi-envelope-fill me-3 text-primary fs-4"></i>
+                                <div>
+                                    <label class="form-label fw-bold mb-1">Email</label>
+                                    <p class="mb-0 text-muted"><?= $dados['usuario']->getEmail() ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center border-bottom pb-2">
+                                <i class="bi bi-shield-check me-3 text-primary fs-4"></i>
+                                <div>
+                                    <label class="form-label fw-bold mb-1">Tipo de Usuário</label>
+                                    <p class="mb-0 text-muted"><?= $dados['usuario']->getTipoUsuario() ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center border-bottom pb-2">
+                                <i class="bi bi-geo-alt-fill me-3 text-primary fs-4"></i>
+                                <div>
+                                    <label class="form-label fw-bold mb-1">Endereço</label>
+                                    <p class="mb-0 text-muted"><?= $dados['usuario']->getEndereco() ?: 'Não informado' ?></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-telephone-fill me-3 text-primary fs-4"></i>
+                                <div>
+                                    <label class="form-label fw-bold mb-1">Telefone</label>
+                                    <p class="mb-0 text-muted"><?= $dados['usuario']->getTelefone() ?: 'Não informado' ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </form>            
-        </div>
-
-        <div class="col-6">
-            <?php require_once(__DIR__ . "/../include/msg.php"); ?>
+            </div>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 30px;">
-        <div class="col-12">
-        <a class="btn btn-secondary" 
-                href="<?= BASEURL ?>/controller/UsuarioController.php?action=list">Voltar</a>
+    <!-- Back Button -->
+    <div class="row mt-4">
+        <div class="col-12 text-center">
+            <a class="btn btn-secondary btn-lg" href="<?= BASEURL ?>/controller/HomeController.php?action=home">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
         </div>
     </div>
 </div>
 
-<?php  
+<?php
 require_once(__DIR__ . "/../include/footer.php");
 ?>
