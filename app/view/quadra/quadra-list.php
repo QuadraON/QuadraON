@@ -96,13 +96,17 @@ require_once(__DIR__ . "/../include/menu.php");
             font-size: 0.9rem;
             color: #aaa;
         }
-
+/* 
         .quadra-container .row {
             gap: 20px;
         }
 
         .quadra-container .card {
             width: calc(33.33% - 13.33px);
+        } */
+
+        .quadra-container .card {
+            min-height: 500px;
         }
 
         .quadra-container .card-text {
@@ -130,32 +134,24 @@ require_once(__DIR__ . "/../include/menu.php");
 
             <?php if (!empty($dados["quadras"])) : ?>
                 <?php foreach ($dados["quadras"] as $quadra) : ?>
-                    <!-- <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" style="text-decoration: none;">
-                    <div class="card">
-                        <h2><?= htmlspecialchars($quadra['nome']) ?></h2>
-                        <div class="info"><span>ID:</span> <?= htmlspecialchars($quadra['idQuadra']) ?></div>
-                        <div class="info"><span>Tipo:</span> <?= htmlspecialchars($quadra['quadraTipo']) ?></div>
-                        <div class="info"><span>Descrição:</span> <?= htmlspecialchars($quadra['descricao']) ?></div>
-                        <div class="info"><span>Endereço:</span> <?= htmlspecialchars($quadra['endereco']) ?></div>
-                    </div>
-                    </a> -->
+
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+
+                            <div class="card-image-wrapper">
+                                <img src="/QuadraON/<?= htmlspecialchars($quadra['foto']) ?>" class="card-img-top" alt="...">
+                            </div>
 
 
-                    <div class="card">
+                            <div class="card-body">
 
-                        <div class="card-image-wrapper">
-                            <img src="/QuadraON/<?= htmlspecialchars($quadra['foto']) ?>" class="card-img-top" alt="...">
-                        </div>
+                                <span class="badge rounded-pill text-bg-warning mb-3"><?= htmlspecialchars($quadra['quadraTipo']) ?></span>
 
 
-                        <div class="card-body">
-
-                            <span class="badge rounded-pill text-bg-warning mb-3"><?= htmlspecialchars($quadra['quadraTipo']) ?></span>
-
-
-                            <h5 class="card-title"><?= ucfirst(htmlspecialchars($quadra['nome'])) ?></h5>
-                            <p class="card-text"><?=    substr(htmlspecialchars($quadra['descricao']), 0, 100)  ?> ...</p>
-                            <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" class="btn btn-primary">Reservar</a>
+                                <h5 class="card-title"><?= ucfirst(htmlspecialchars($quadra['nome'])) ?></h5>
+                                <p class="card-text"><?= substr(htmlspecialchars($quadra['descricao']), 0, 100)  ?> ...</p>
+                                <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= urlencode($quadra['idQuadra']) ?>" class="btn btn-primary">Reservar</a>
+                            </div>
                         </div>
                     </div>
 

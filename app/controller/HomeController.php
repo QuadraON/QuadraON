@@ -26,8 +26,11 @@ class HomeController extends Controller {
     protected function home() {
 
         $dados["qtdUsuarios"] = $this->usuarioDAO->quantidadeUsuarios(); 
+        $dados["qtdQuadras"] = $this->quadraDAO->quantidadeQuadras();
+
 
         $dados["quadras"] = $this->quadraDAO->buscarTodas();
+        $dados["ultimas"] = $this->quadraDAO->buscarUltimas();
 
         $this->loadView("home/home.php", $dados);
     }

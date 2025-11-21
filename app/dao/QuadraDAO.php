@@ -54,6 +54,14 @@ class QuadraDAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function buscarUltimas()
+    {
+        $sql = "SELECT * FROM Quadra ORDER BY idQuadra desc limit 4";
+
+        $stmt = $this->conn->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function atualizar($idQuadra, $nome, $tipo, $descricao, $endereco, $foto)
     {
         if ($foto) {
@@ -97,5 +105,19 @@ class QuadraDAO
         $count = $stmt->fetchColumn();
 
         return $count > 0;
+    }
+
+
+    //Quantidade de usuários
+    public function quantidadeQuadras() {
+        $conn = Connection::getConn();
+
+        $sql = "SELECT COUNT(*) AS qtd_quadras FROM Quadra";
+
+        $stm = $conn->prepare($sql);
+        $stm->execute();
+        $result = $stm->fetchAll();
+
+        return $result[0]["qtd_quadras"];
     }
 }

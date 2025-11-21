@@ -126,7 +126,10 @@
             <p>Nenhuma reserva encontrada para esta quadra.</p>
         <?php endif; ?>
 
-        <a href="/QuadraON/app/controller/QuadraController.php?action=list" class="back-btn">Voltar para Lista</a>
+
+        <a href="/QuadraON/app/view/quadra/alugar-view.php?id=<?= $_GET['id'] ?>" class="back-btn">Voltar</a>
+
+        
     <?php else: ?>
         <p>Quadra não encontrada.</p>
         <a href="/QuadraON/app/controller/QuadraController.php?action=list" class="back-btn">Voltar</a>

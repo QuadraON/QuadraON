@@ -67,25 +67,6 @@ CREATE TABLE IF NOT EXISTS `Reserva` (
 ENGINE = InnoDB;
 
 
-
--- -----------------------------------------------------
--- Table `Notificacao`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Notificacao` (
-  `idNotificacao` INT NOT NULL AUTO_INCREMENT,
-  `idUsuario` INT NOT NULL,
-  `texto` VARCHAR(255) NULL,
-  `situacao` ENUM('PENDENTE', 'LIDO') NULL,
-  PRIMARY KEY (`idNotificacao`),
-  INDEX `fk_Notificacao_Usuario1_idx` (`idUsuario` ASC) ,
-  CONSTRAINT `fk_Notificacao_Usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `Usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
 /* Senha: 123 */
 INSERT INTO Usuario (nome, email, senha, endereco, telefone, tipoUsuario) 
 VALUES ('Rafael Viotto', 'rafael@gmail.com', '$2y$10$gCAcTQ0Hi3avHi18HArpFuyKvIvQK4Uk7zYKql4YGe9F1p9TeKMNe', 'Rua Armindo Mate', '45 999857228', 'ADM');

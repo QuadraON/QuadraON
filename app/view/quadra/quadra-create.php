@@ -3,7 +3,7 @@ require_once(__DIR__ . "/../include/header.php");
 require_once(__DIR__ . "/../include/menu.php");
 ?>
 
-<?php if(!empty($dados["erro"])): ?>
+<?php if (!empty($dados["erro"])): ?>
     <div class="msg-erro">
         <?= htmlspecialchars($dados["erro"]) ?>
     </div>
@@ -11,22 +11,23 @@ require_once(__DIR__ . "/../include/menu.php");
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Quadra</title>
     <style>
         .msg-erro {
-    background-color: #330000;
-    border: 2px solid #ff5555;
-    color: #ff5555;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0 10px #ff5555, inset 0 0 5px #ff0000;
-    font-weight: bold;
-    text-transform: uppercase;
-}
+            background-color: #330000;
+            border: 2px solid #ff5555;
+            color: #ff5555;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 10px #ff5555, inset 0 0 5px #ff0000;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -79,8 +80,8 @@ require_once(__DIR__ . "/../include/menu.php");
             outline: none;
             border: 2px solid #00ff88;
         }
-descricao
-        input[type="submit"] {
+
+        descricao input[type="submit"] {
             background-color: #00ff88;
             color: #000000;
             padding: 12px;
@@ -113,29 +114,29 @@ descricao
         }
 
         input[type="submit"] {
-    background: linear-gradient(145deg, #00ff88, #00cc70);
-    color: #000000;
-    padding: 12px;
-    margin-top: 25px;
-    border: none;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #00ff88, inset 0 0 5px #00cc70;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-}
+            background: linear-gradient(145deg, #00ff88, #00cc70);
+            color: #000000;
+            padding: 12px;
+            margin-top: 25px;
+            border: none;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #00ff88, inset 0 0 5px #00cc70;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
 
-input[type="submit"]:hover {
-    background: linear-gradient(145deg, #00cc70, #009957);
-    box-shadow: 0 0 15px #00ff88, inset 0 0 7px #00cc70;
-    transform: translateY(-2px);
-}
-
+        input[type="submit"]:hover {
+            background: linear-gradient(145deg, #00cc70, #009957);
+            box-shadow: 0 0 15px #00ff88, inset 0 0 7px #00cc70;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
 
@@ -152,27 +153,29 @@ input[type="submit"]:hover {
             <input type="text" name="endereco" id="endereco">
 
             <label for="descricao">Descrição:</label>
-            <input type="text" name="descricao" id="descricao" >
+            <input type="text" name="descricao" id="descricao">
 
             <label for="tipoQuadra">Tipo de Quadra:</label>
-            
+
             <select name="tipoQuadra" id="tipoQuadra">
                 <option value="">Selecione o Tipo de Quadra</option>
-                <?php foreach($dados["quadras"]['tipoQuadras'] as $quadraTipo): ?>
+                <?php foreach ($dados["quadras"]['tipoQuadras'] as $quadraTipo): ?>
                     <option value="<?= $quadraTipo ?>">
                         <?= $quadraTipo ?>
                     </option>
 
                 <?php endforeach; ?>
             </select>
-                    
+
             <input type="submit" value="Cadastrar">
         </form>
 
         <?php require_once(__DIR__ . "/../include/msg.php"); ?>
 
     </div>
+
 </body>
+
 </html>
 
 <?php

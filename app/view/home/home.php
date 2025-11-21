@@ -18,7 +18,45 @@ require_once(__DIR__ . "/../include/menu.php");
                 <a href="<?= BASEURL ?>/controller/QuadraController.php?action=list" class="btn btn-success btn-lg">Ver Quadras Disponíveis</a>
             </div>
             <div class="col-md-6 text-center">
-                <img src="https://lnfoficial.com.br/media/2022/11/14.11.2022-Foz-Foto-Assessoria-Foz.jpg" alt="IFPR Foz do Iguaçu" class="img-fluid rounded shadow">
+                <!-- <img src="https://lnfoficial.com.br/media/2022/11/14.11.2022-Foz-Foto-Assessoria-Foz.jpg" alt="IFPR Foz do Iguaçu" class="img-fluid rounded shadow"> -->
+
+                <div id="carousel" class="carousel slide">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="<?= BASEURL . "/../" . $dados["ultimas"][3]['foto'] ?>" class="d-block w-100" alt="...">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><?= $dados["ultimas"][3]['nome'] ?></h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                            </div>
+                        </div>
+
+                        <?php foreach ($dados["ultimas"] as $ultimas_quadras): ?>
+
+                            <div class="carousel-item">
+                                <img src="<?= BASEURL . "/../" . $ultimas_quadras['foto'] ?>" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block text-center">
+                                    <h5><?=  $ultimas_quadras['nome'] ?></h5>
+                                    <p>Some representative placeholder content for the first slide.</p>
+                                </div>
+                            </div>
+
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">próximo</span>
+                    </button>
+                </div>
+
+
             </div>
         </div>
     </div>
