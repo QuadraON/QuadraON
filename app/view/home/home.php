@@ -57,6 +57,8 @@ require_once(__DIR__ . "/../include/menu.php");
                 </div>
 
 
+                <img src="<?= BASEURL ?>/view/img/ifpr_foz.jpg" alt="IFPR Foz do Iguaçu" class="img-fluid rounded shadow">
+
             </div>
         </div>
     </div>
